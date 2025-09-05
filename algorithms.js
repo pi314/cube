@@ -14,7 +14,7 @@ let oll_algo = [
     {   'id': 'OLL20',
         'pattern': ['#W#W#W#W#', '.#./.#./.#./.#.'],
         'algo': [
-            `(M U')4 U2 (M U')4`,
+            `(M' U')4 U2 (M' U')4`,
         ]
     },
     {   'id': 'OLL21',
