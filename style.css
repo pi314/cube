@@ -1,0 +1,46 @@
+#container {
+    display: inline-block;
+    border: solid 2px black;
+    border-radius: 5px;
+}
+
+#decks {
+    display: flex;
+    flex-direction: row;
+}
+
+#decks > div {
+    margin: 4px;
+}
+
+table {
+    vertical-align: top;
+    display: inline-block;
+}
+
+table, td {
+    border: solid 1px #16161D;
+}
+
+td {
+    padding: 8px;
+}
+
+.card {
+    display: inline-block;
+    margin: 0.5em;
+    padding: 0 0.5em;
+    border: solid 1px black;
+    border-radius: 5px;
+}
+
+h4 {
+    margin: 0.5em auto;
+}
+
+ul {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-right: 0.5em;
+    padding-left: 1em;
+}
