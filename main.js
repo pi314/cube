@@ -24,7 +24,6 @@ function main () {
                 ...deck.map((card) => {
                     if ('img' in card) {
                         let card_id = card.img.match(/^(\w+\d+).*\.(png|svg|gif)$/)?.[1];
-
                         return tr(
                             td(
                                 p(card_id),
@@ -34,15 +33,13 @@ function main () {
                             td(...card.algo.map((e) => p(e)))
                         );
                     } else {
-                        let card_id = card?.id;
-
                         return tr(
                             td(
-                                p(card_id),
+                                p(card?.id),
                                 ((card.name) ? p(card.name) : '')
                             ),
-                            td(draw_2d_cube(...card.pattern)),
-                            td(...card.algo.map((e) => p(e)).join(hr))
+                            td(draw_cube(card.pattern)),
+                            (card?.algo) ? td(...card.algo.map((e) => p(e)).join(hr)) : td()
                         );
                     }
                 })
