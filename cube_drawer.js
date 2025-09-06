@@ -20,9 +20,10 @@ const _palette = new Map([
     ['#', '#16161D'], // eigengrau
     ['.', '#404040'], // gray
     ['_', 'transparent'], // non-exist
+    ['-', 'transparent'], // non-exist
 ]);
 function palette (code) {
-    return code.replace(/[^\w#._]/g, '')
+    return code.replace(/[^\w#._-]/g, '')
         .split('')
         .map((c) => _palette.get(c) ?? '#AF5FFF');
 }
