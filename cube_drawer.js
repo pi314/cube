@@ -19,9 +19,10 @@ const _palette = new Map([
     ['O', '#FF8800'], // orange
     ['#', '#16161D'], // eigengrau
     ['.', '#404040'], // gray
+    ['_', 'transparent'], // non-exist
 ]);
 function palette (code) {
-    return code.replace(/[^\w#.]/g, '')
+    return code.replace(/[^\w#._]/g, '')
         .split('')
         .map((c) => _palette.get(c) ?? '#AF5FFF');
 }
@@ -70,7 +71,7 @@ function draw_2d_cube (top_stickers, edge_stickers, arrows) {
     let edge_bottom_cy = edge_right_cx;
 
     top_stickers = palette(top_stickers);
-    edge_stickers = palette(edge_stickers)
+    edge_stickers = palette(edge_stickers);
 
     function tile (cx, cy, color) {
         let tx = cx - tile_width / 2;
@@ -78,10 +79,8 @@ function draw_2d_cube (top_stickers, edge_stickers, arrows) {
         let sx = cx - sticker_width / 2;
         let sy = cy - sticker_width / 2;
 
-        let fill_color = (color === undefined) ? '#000000' : 'white';
-
         let frame = `<rect x="${tx}" y="${ty}" width="${tile_width}" height="${tile_width}"
-            rx="${tile_round}" ry="${tile_round}" stroke="black" fill="${fill_color}" stroke-width="${tile_border_width}"
+            rx="${tile_round}" ry="${tile_round}" stroke="black" fill="white" stroke-width="${tile_border_width}"
             />`;
         let sticker = `<rect x="${sx}" y="${sy}" width="${sticker_width}" height="${sticker_width}"
             rx="${tile_round}" ry="${tile_round}" fill="${color}" />`;
@@ -90,7 +89,7 @@ function draw_2d_cube (top_stickers, edge_stickers, arrows) {
     }
 
     function edge_h (cx, cy, color) {
-        if (color === undefined) { return '' }
+        if (color === 'transparent') { return '' }
 
         let x = cx - sticker_width / 2;
         let y = cy - edge_width / 2;
@@ -99,7 +98,7 @@ function draw_2d_cube (top_stickers, edge_stickers, arrows) {
     }
 
     function edge_v (cx, cy, color) {
-        if (color === undefined) { return '' }
+        if (color === 'transparent') { return '' }
 
         let x = cx - edge_width / 2;
         let y = cy - sticker_width / 2;
