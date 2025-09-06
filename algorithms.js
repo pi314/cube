@@ -150,21 +150,21 @@ let pll_algo = [
     },
     {   'id': 'PLL10',
         'name': 'F perm',
-        'pattern': ['YYYYYYYYY', 'ORG/BBB/RGO/ROG', [128, 139]],
+        'pattern': ['YYYYYYYYY', 'ROB/GGG/OBR/ORB', [128, 139]],
         'algo': [
             `(R' U' F') (T perm skip final F) U R`,
         ]
     },
     {   'id': 'PLL12',
         'name': 'R perm',
-        'pattern': ['YYYYYYYYY', 'OBG/BOB/RBO/RRG', [124, 139]],
+        'pattern': ['YYYYYYYYY', 'RGB/GRG/OBR/OOB', [124, 139]],
         'algo': [
             `(R U R' F') (R U2) (R' U2) (R' F R U) (R U2 R' U')`,
         ]
     },
     {   'id': 'PLL13',
         'name': 'J(b) perm',
-        'pattern': ['YYYYYYYYY', 'OOG/BBB/RRO/RGG', [139, 168]],
+        'pattern': ['YYYYYYYYY', 'RRB/GGG/OOR/OBB', [139, 168]],
         'algo': [
             `(R U2' R' U' R U2') (L' U R' U' L)`,
             `(R U R' F') (R U R' U') (R' F) (R2 U') R' U'`,
@@ -179,7 +179,7 @@ let pll_algo = [
         ]
     },
     {   'name': 'Void parity',
-        'pattern': ['YYYY.YYYY', 'BOB/RRR/OBO/GGG', [126]],
+        'pattern': ['YYYY.YYYY', 'RBR/GGG/BRB/OOO', [126]],
         'algo': [
             `(M' U)2 (M' U')2 (M' 2U) (M' U')2`,
         ]
