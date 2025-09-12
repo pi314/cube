@@ -221,14 +221,14 @@ let oll_algo = [
 let pll_algo = [
     {   'id': 'PLL01',
         'name': 'U(b) perm',
-        'pattern': {'top': 'YYYYYYYYY', 'edge': 'RRR/GBG/BOB/OGO', 'arrows': [68, 84, 46]},
+        'pattern': {'top': 'YYYYYYYYY', 'edge': 'RRR/GBG/BOB/OGO', 'arrows': ['6>8', '8>4', '4>6']},
         'algo': [
             `(R2 U R U) (R' U' R' U') (R' U' R')`,
         ]
     },
     {   'id': 'PLL02',
         'name': 'U(a) perm',
-        'pattern': {'top': 'YYYYYYYYY', 'edge': 'RRR/GOG/BGB/OBO', 'arrows': [64, 48, 86]},
+        'pattern': {'top': 'YYYYYYYYY', 'edge': 'RRR/GOG/BGB/OBO', 'arrows': ['6>4', '4>8', '8>6']},
         'algo': [
             `F2 U' (L R' F2 L' R) U' F2`,
             `y' R2' U' (F B' R2 F' B) U' R2'`,
@@ -236,21 +236,21 @@ let pll_algo = [
     },
     {   'id': 'PLL03',
         'name': 'A(b) perm',
-        'pattern': {'top': 'YYYYYYYYY', 'edge': 'RRO/GGO/GBR/BOB', 'arrows': [37, 79, 93]},
+        'pattern': {'top': 'YYYYYYYYY', 'edge': 'RRO/GGO/GBR/BOB', 'arrows': ['3>7', '7>9', '9>3']},
         'algo': [
             `x' (R U' R) D2 (R' U R) D2 R2`,
         ]
     },
     {   'id': 'PLL04',
         'name': 'A(a) perm',
-        'pattern': {'top': 'YYYYYYYYY', 'edge': 'RRB/GGB/OBO/ROG', 'arrows': [73, 97, 39]},
+        'pattern': {'top': 'YYYYYYYYY', 'edge': 'RRB/GGB/OBO/ROG', 'arrows': ['7>3', '9>7', '3>9']},
         'algo': [
             `x' R2 D2 (R' U' R) D2 (R' U R')`,
         ]
     },
     {   'id': 'PLL05',
         'name': 'Z perm',
-        'pattern': {'top': 'YYYYYYYYY', 'edge': 'RBR/GOG/BRB/OGO', 'arrows': [126, 148]},
+        'pattern': {'top': 'YYYYYYYYY', 'edge': 'RBR/GOG/BRB/OGO', 'arrows': ['2<>6', '4<>8']},
         'algo': [
             `(R' U' R U') (R U R U') (R' U R U) (R2 U' R') U2`,
             `(M2 U') (M2 U') (M' U2) (M2 U2) (M' U2)`,
@@ -258,14 +258,14 @@ let pll_algo = [
     },
     {   'id': 'PLL06',
         'name': 'H perm',
-        'pattern': {'top': 'YYYYYYYYY', 'edge': 'ROR/GBG/BGB/ORO', 'arrows': [128, 146]},
+        'pattern': {'top': 'YYYYYYYYY', 'edge': 'ROR/GBG/BGB/ORO', 'arrows': ['2<>8', '4<>6']},
         'algo': [
             `M2 U' M2 U2' M2 U' M2`,
         ]
     },
     {   'id': 'PLL07',
         'name': 'E perm',
-        'pattern': {'top': 'YYYYYYYYY', 'edge': 'BRG/RGO/RBO/BOG', 'arrows': [113, 179]},
+        'pattern': {'top': 'YYYYYYYYY', 'edge': 'BRG/RGO/RBO/BOG', 'arrows': ['1<>3', '7<>9']},
         'algo': [
             // https://www.youtube.com/watch?v=9UzbyvSpQRY
             `(R2 U F') (R' U R U')3 (F U' R2)`,
@@ -273,14 +273,14 @@ let pll_algo = [
     },
     {   'id': 'PLL08',
         'name': 'T perm',
-        'pattern': {'top': 'YYYYYYYYY', 'edge': 'RRB/GBG/OGR/OOB', 'arrows': [146, 139]},
+        'pattern': {'top': 'YYYYYYYYY', 'edge': 'RRB/GBG/OGR/OOB', 'arrows': ['4<>6', '3<>9']},
         'algo': [
             `(R U R' U') (R' F) (R2 U' R' U) (R U R') F'`,
         ]
     },
     {   'id': 'PLL09',
         'name': 'V perm',
-        'pattern': {'top': 'YYYYYYYYY', 'edge': 'OBR/BGG/BRG/OOR', 'arrows': [119, 126]},
+        'pattern': {'top': 'YYYYYYYYY', 'edge': 'OBR/BGG/BRG/OOR', 'arrows': ['1<>9', '2<>6']},
         'algo': [
             // https://www.youtube.com/watch?v=XYzsUPqElTk
             `(R' U R' U') (R D' R' D) R' (U D') (R2 U' R2 D R2)`,
@@ -288,21 +288,21 @@ let pll_algo = [
     },
     {   'id': 'PLL10',
         'name': 'F perm',
-        'pattern': {'top': 'YYYYYYYYY', 'edge': 'ROB/GGG/OBR/ORB', 'arrows': [128, 139]},
+        'pattern': {'top': 'YYYYYYYYY', 'edge': 'ROB/GGG/OBR/ORB', 'arrows': ['2<>8', '3<>9']},
         'algo': [
             `(R' U' F') (T perm skip final F) U R`,
         ]
     },
     {   'id': 'PLL12',
         'name': 'R perm',
-        'pattern': {'top': 'YYYYYYYYY', 'edge': 'RGB/GRG/OBR/OOB', 'arrows': [124, 139]},
+        'pattern': {'top': 'YYYYYYYYY', 'edge': 'RGB/GRG/OBR/OOB', 'arrows': ['2<>4', '3<>9']},
         'algo': [
             `(R U R' F') (R U2) (R' U2) (R' F R U) (R U2 R' U')`,
         ]
     },
     {   'id': 'PLL13',
         'name': 'J(b) perm',
-        'pattern': {'top': 'YYYYYYYYY', 'edge': 'RRB/GGG/OOR/OBB', 'arrows': [139, 168]},
+        'pattern': {'top': 'YYYYYYYYY', 'edge': 'RRB/GGG/OOR/OBB', 'arrows': ['3<>9', '6<>8']},
         'algo': [
             `(R U2' R' U' R U2') (L' U R' U' L)`,
             `(R U R' F') (R U R' U') (R' F) (R2 U') R' U'`,
@@ -310,14 +310,14 @@ let pll_algo = [
     },
     {   'id': 'PLL15',
         'name': 'Y perm',
-        'pattern': {'top': 'YYYYYYYYY', 'edge': 'OGR/BRG/BBG/OOR', 'arrows': [124, 119]},
+        'pattern': {'top': 'YYYYYYYYY', 'edge': 'OGR/BRG/BBG/OOR', 'arrows': ['2<>4', '1<>9']},
         'algo': [
             `(R' U' R U') (J perm) (U R' U R)`,
             `(F R U' R') U' (R U R' F') (R U R' U') (R' F R F')`,
         ]
     },
     {   'name': 'Void parity',
-        'pattern': {'top': 'YYYY#YYYY', 'edge': 'RBR/GGG/BRB/OOO', 'arrows': [126]},
+        'pattern': {'top': 'YYYY#YYYY', 'edge': 'RBR/GGG/BRB/OOO', 'arrows': ['2<>6']},
         'algo': [
             `(M' U)2 (M' U')2 (M' 2U) (M' U')2`,
         ]
@@ -468,6 +468,22 @@ let f2l_algo = [
     // {   'id': 'F2L41',
     //     'pattern': {'top': '.........', 'front': '...BBRBBB', 'right': '...BRRRRR'},
     // },
+    {   'id': '4x4 OLL parity',
+        'pattern': {'top': 'YYYYYYYYYYYYYOOY', 'edge': 'RRRR/GGGG/BBBB/OYYO'},
+        'algo': [
+            `(r' U2) (l F2 l' F2) r2 (U2 r U2 r' U2) F2 r2 F2`,
+        ]
+    },
+    {   'name': '4x4 PLL parity',
+        'pattern': {'top': 'YYYYYYYYYYYYYYYY', 'edge': 'ROOR/GGGG/BBBB/ORRO', 'arrows': ['2<>15', '3<>14']},
+        'algo': [
+            `r2 U2 r2 Uw2 r2 u2`,
+        ]
+    },
+];
+
+
+let four_by_four_algo = [
 ];
 
 

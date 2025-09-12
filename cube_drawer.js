@@ -29,8 +29,26 @@ function palette (code) {
 }
 
 
-function draw_2d_cube (top_stickers, edge_stickers, arrows) {
+function draw_2d_cube (top_stickers, side_stickers, arrows) {
+    /*
+     *         North
+     *        -- -- --
+     *      | ## ## ## |
+     * West | ## ## ## | East
+     *      | ## ## ## |
+     *        -- -- --
+     *         South
+     *
+     * -: side
+     * #: tile
+     * */
+
+    top_stickers = palette(top_stickers);
+    side_stickers = palette(side_stickers);
+
     let img_width = 100;
+
+    let N = Math.sqrt(top_stickers.length);
 
     let canvas_padding = 1;
     let tile_width = 40;
@@ -38,41 +56,40 @@ function draw_2d_cube (top_stickers, edge_stickers, arrows) {
     let tile_border_width = 2;
     let sticker_width = 34;
 
-    let edge_width = 7;
-    let edge_round = 1;
-    let edge_border_width = 1;
-    let tile_edge_gap = 3;
+    let side_width = 7;
+    let side_round = 1;
+    let side_border_width = 1;
+    let tile_side_gap = 3;
 
     let arrow_width = 4;
     let arrow_wrap_width = 1.5;
     let arrow_tip_size = 16;
     let arrow_shrink_size = arrow_tip_size / 2;
 
-    let canvas_width = canvas_padding + edge_width + tile_edge_gap + tile_width * 3 + tile_edge_gap + edge_width + canvas_padding;
+    let canvas_width = canvas_padding + side_width + tile_side_gap + tile_width * N + tile_side_gap + side_width + canvas_padding;
 
-    let tile_cx0 = canvas_padding + edge_width + tile_edge_gap + (tile_width / 2);
-    let tile_cx = [
-        tile_cx0,
-        tile_cx0 + tile_width,
-        tile_cx0 + tile_width * 2,
-    ];
+    // Tile center x
+    let tile_cx0 = canvas_padding + side_width + tile_side_gap + (tile_width / 2);
+    let tile_cx = [];
+    for (let i = 0; i < N; i++) {
+        tile_cx.push(tile_cx0 + i * tile_width);
+    }
 
+    // Tile center y
     let tile_cy = tile_cx;
 
-    let edge_top_cx = tile_cx;
-    let edge_top_cy = canvas_padding + (edge_width / 2);
+    // side centers
+    let side_north_cx = tile_cx;
+    let side_north_cy = canvas_padding + (side_width / 2);
 
-    let edge_left_cx = edge_top_cy;
-    let edge_left_cy = tile_cy;
+    let side_west_cx = side_north_cy;
+    let side_west_cy = tile_cy;
 
-    let edge_right_cx = tile_cx[2] + (tile_width / 2) + tile_edge_gap + (edge_width / 2);
-    let edge_right_cy = tile_cy;
+    let side_east_cx = tile_cx[N - 1] + (tile_width / 2) + tile_side_gap + (side_width / 2);
+    let side_east_cy = tile_cy;
 
-    let edge_bottom_cx = edge_right_cy;
-    let edge_bottom_cy = edge_right_cx;
-
-    top_stickers = palette(top_stickers);
-    edge_stickers = palette(edge_stickers);
+    let side_south_cx = side_east_cy;
+    let side_south_cy = side_east_cx;
 
     function tile (cx, cy, color) {
         let tx = cx - tile_width / 2;
@@ -89,35 +106,36 @@ function draw_2d_cube (top_stickers, edge_stickers, arrows) {
         return frame + sticker;
     }
 
-    function edge_h (cx, cy, color) {
+    function side_h (cx, cy, color) {
         if (color === 'transparent') { return '' }
-
         let x = cx - sticker_width / 2;
-        let y = cy - edge_width / 2;
-        return `<rect x="${x}" y="${y}" width="${sticker_width}" height="${edge_width}"
-            rx="${edge_round}" ry="${edge_round}" stroke="black" fill="${color}" stroke-width="${edge_border_width}" />`;
+        let y = cy - side_width / 2;
+        return `<rect x="${x}" y="${y}" width="${sticker_width}" height="${side_width}"
+            rx="${side_round}" ry="${side_round}" stroke="black" fill="${color}" stroke-width="${side_border_width}" />`;
     }
 
-    function edge_v (cx, cy, color) {
+    function side_v (cx, cy, color) {
         if (color === 'transparent') { return '' }
-
-        let x = cx - edge_width / 2;
+        let x = cx - side_width / 2;
         let y = cy - sticker_width / 2;
-        return `<rect x="${x}" y="${y}" width="${edge_width}" height="${sticker_width}"
-            rx="${edge_round}" ry="${edge_round}" stroke="black" fill="${color}" stroke-width="${edge_border_width}" />`;
+        return `<rect x="${x}" y="${y}" width="${side_width}" height="${sticker_width}"
+            rx="${side_round}" ry="${side_round}" stroke="black" fill="${color}" stroke-width="${side_border_width}" />`;
     }
 
     function arrow (p) {
-        p = p - 11;
-        let dbl = Math.floor(p / 100);
-        let a = Math.floor(p / 10) % 10;
-        let b = p % 10;
+        let m = p.match(/^(\d)(>|<>)(\d+)$/);
+        if (!m) {
+            return;
+        }
+        let dbl = m[2] == '<>';
+        let a = parseInt(m[1]) - 1;
+        let b = parseInt(m[3]) - 1;
 
-        let x1 = tile_cx[a % 3];
-        let y1 = tile_cy[Math.floor(a / 3)];
+        let x1 = tile_cx[a % N];
+        let y1 = tile_cy[Math.floor(a / N)];
 
-        let x2 = tile_cx[b % 3];
-        let y2 = tile_cy[Math.floor(b / 3)];
+        let x2 = tile_cx[b % N];
+        let y2 = tile_cy[Math.floor(b / N)];
 
         let mx = (x1 + x2) / 2;
         let my = (y1 + y2) / 2;
@@ -168,42 +186,40 @@ function draw_2d_cube (top_stickers, edge_stickers, arrows) {
         return wbody(cx1, cy1, cx2, cy2) + tipf(cx1, cy1, angle) + (dbl ? tipr(cx2, cy2, angle) : '') + body(cx1, cy1, cx2, cy2);
     }
 
-    return `<svg viewBox="0 0 ${canvas_width} ${canvas_width}" xmlns="http://www.w3.org/2000/svg"
-        style="width: ${img_width}px; height: ${img_width}px">
+    ret = `<svg viewBox="0 0 ${canvas_width} ${canvas_width}" xmlns="http://www.w3.org/2000/svg"
+            style="width: ${img_width}px; height: ${img_width}px">`
+    ret += `<rect x="0" y="0" width="${canvas_width}" height="${canvas_width}" fill="white" />`;
 
-        <rect x="0" y="0" width="${canvas_width}" height="${canvas_width}" fill="white" />
+    // Tile stickers
+    for (let row = 0; row < N; row++) {
+        for (let col = 0; col < N; col++) {
+            ret += tile(tile_cx[col], tile_cy[row], top_stickers[row * N + col]);
+        }
+    }
 
-        ${tile(tile_cx[0], tile_cy[0], top_stickers[0])}
-        ${tile(tile_cx[1], tile_cy[0], top_stickers[1])}
-        ${tile(tile_cx[2], tile_cy[0], top_stickers[2])}
+    // North side stickers
+    for (let i = 0; i < N; i++) {
+        ret += side_h(side_north_cx[i], side_north_cy, side_stickers[i]);
+    }
 
-        ${tile(tile_cx[0], tile_cy[1], top_stickers[3])}
-        ${tile(tile_cx[1], tile_cy[1], top_stickers[4])}
-        ${tile(tile_cx[2], tile_cy[1], top_stickers[5])}
+    // West side stickers
+    for (let i = 0; i < N; i++) {
+        ret += side_v(side_west_cx, side_west_cy[i], side_stickers[N + i]);
+    }
 
-        ${tile(tile_cx[0], tile_cy[2], top_stickers[6])}
-        ${tile(tile_cx[1], tile_cy[2], top_stickers[7])}
-        ${tile(tile_cx[2], tile_cy[2], top_stickers[8])}
+    // East side stickers
+    for (let i = 0; i < N; i++) {
+        ret += side_v(side_east_cx, side_east_cy[i], side_stickers[N * 2 + i]);
+    }
 
-        ${edge_h(edge_top_cx[0], edge_top_cy, edge_stickers[0])}
-        ${edge_h(edge_top_cx[1], edge_top_cy, edge_stickers[1])}
-        ${edge_h(edge_top_cx[2], edge_top_cy, edge_stickers[2])}
+    // North side stickers
+    for (let i = 0; i < N; i++) {
+        ret += side_h(side_south_cx[i], side_south_cy, side_stickers[N * 3 + i]);
+    }
 
-        ${edge_v(edge_left_cx, edge_left_cy[0], edge_stickers[3])}
-        ${edge_v(edge_left_cx, edge_left_cy[1], edge_stickers[4])}
-        ${edge_v(edge_left_cx, edge_left_cy[2], edge_stickers[5])}
-
-        ${edge_v(edge_right_cx, edge_right_cy[0], edge_stickers[6])}
-        ${edge_v(edge_right_cx, edge_right_cy[1], edge_stickers[7])}
-        ${edge_v(edge_right_cx, edge_right_cy[2], edge_stickers[8])}
-
-        ${edge_h(edge_bottom_cx[0], edge_bottom_cy, edge_stickers[9])}
-        ${edge_h(edge_bottom_cx[1], edge_bottom_cy, edge_stickers[10])}
-        ${edge_h(edge_bottom_cx[2], edge_bottom_cy, edge_stickers[11])}
-
-        ` + ((arrows === undefined) ? '' : arrows.map((a) => arrow(a))) + `
-
-        </svg>`;
+    ret += ((arrows === undefined) ? '' : arrows.map((a) => arrow(a)))
+    ret += '</svg>';
+    return ret;
 }
 
 
