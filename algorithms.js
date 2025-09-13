@@ -89,7 +89,7 @@ let oll_algo = [
     {   'id': 'OLL24',
         'pattern': {'top': 'W#####W##', 'edge': '#--/---/---/#--'},
         'algo': [
-            `(r U R' U') r' (F R F')`,
+            `(Rw U R' U') Rw' (F R F')`,
         ]
     },
     {   'id': 'OLL25',
