@@ -212,7 +212,7 @@ let oll_algo = [
     {   'id': 'OLL57',
         'pattern': {'top': 'YRYYYYYOY', 'edge': 'RYR/GGG/BBB/OYO'},
         'algo': [
-            `(M U' M U' M U2) (M' U' M' U' M' U2)`,
+            `(M' U' M' U' M' U2) (M U' M U' M U2)`,
         ]
     },
 ];
