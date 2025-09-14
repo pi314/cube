@@ -313,7 +313,7 @@ let pll_algo = [
         'pattern': {'top': 'YYYYYYYYY', 'edge': 'OGR/BRG/BBG/OOR', 'arrows': ['2<>4', '1<>9']},
         'algo': [
             `(R' U' R U') (J perm) (U R' U R)`,
-            `(F R U' R') U' (R U R' F') (R U R' U') (R' F R F')`,
+            `F (R U' R' U') (R U R' F') (R U R' U') (R' F R F')`,
         ]
     },
     {   'name': 'Void parity',
