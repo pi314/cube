@@ -246,6 +246,7 @@ let pll_algo = [
         'pattern': {'top': 'YYYYYYYYY', 'edge': 'RRB/GGB/OBO/ROG', 'arrows': ['7->3', '9->7', '3->9']},
         'algo': [
             `x' R2 D2 (R' U' R) D2 (R' U R')`,
+            `U2 (r U r' U') r' F r2 (U' r' U' r U r') F' //wide T-perm`
         ]
     },
     {   'id': 'PLL05',
