@@ -123,11 +123,11 @@ function draw_2d_cube (top_stickers, side_stickers, arrows) {
     }
 
     function arrow (p) {
-        let m = p.match(/^(\d)(>|<>)(\d+)$/);
+        let m = p.match(/^(\d+)(->|<->)(\d+)$/);
         if (!m) {
             return;
         }
-        let dbl = m[2] == '<>';
+        let dbl = m[2] == '<->';
         let a = parseInt(m[1]) - 1;
         let b = parseInt(m[3]) - 1;
 
