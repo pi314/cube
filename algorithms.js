@@ -270,6 +270,7 @@ let pll_algo = [
         'algo': [
             // https://www.youtube.com/watch?v=9UzbyvSpQRY
             `(R2 U F') (R' U R U')3 (F U' R2)`,
+            `x' (R U' R' D) (R U R' D') (R U R' D) (R U' R' D') x`,
         ]
     },
     {   'id': 'PLL08',
