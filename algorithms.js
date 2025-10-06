@@ -122,9 +122,12 @@ let oll_algo = [
     // {   'id': 'OLL32',
     //     'pattern': {'top': 'WW#W##W##', 'edge': '##-/-#-/---/#--'},
     // },
-    // {   'id': 'OLL33',
-    //     'pattern': {'top': 'WW####WW#', 'edge': '##-/---/---/##-'},
-    // },
+    {   'id': 'OLL33',
+        'pattern': {'top': 'WW####WW#', 'edge': '##-/---/---/##-'},
+        'algo': [
+            `(R U R' U') (R' F R F')`,
+        ]
+    },
     // {   'id': 'OLL34',
     //     'pattern': {'top': 'WWW####W#', 'edge': '-#-/#--/#--/-#-'},
     // },
@@ -137,7 +140,7 @@ let oll_algo = [
     {   'id': 'OLL37',
         'pattern': {'top': '##W##WWW#', 'edge': '---/---/##-/##-'},
         'algo': [
-            `F (R U' R' U') R U R' F'`,
+            `F (R U' R' U') (R U R' F')`,
         ]
     },
     // {   'id': 'OLL38',
