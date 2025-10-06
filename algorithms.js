@@ -313,6 +313,13 @@ let pll_algo = [
             `(R U R' F') (R U R' U') (R' F) (R2 U') R' U'`,
         ]
     },
+    {   'id': 'PLL14',
+        'name': 'J(a) perm',
+        'pattern': {'top': 'YYYYYYYYY', 'edge': 'RBB/GGG/ORR/OOB', 'arrows': ['2<->6', '3<->9']},
+        'algo': [
+            `(x R2) (F R F') (R U2) (r' U r U2) x'`,
+        ]
+    },
     {   'id': 'PLL15',
         'name': 'Y perm',
         'pattern': {'top': 'YYYYYYYYY', 'edge': 'OGR/BRG/BBG/OOR', 'arrows': ['2<->4', '1<->9']},
