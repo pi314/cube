@@ -265,6 +265,7 @@ let pll_algo = [
         'pattern': {'top': 'YYYYYYYYY', 'edge': 'ROR/GBG/BGB/ORO', 'arrows': ['2<->8', '4<->6']},
         'algo': [
             `M2 U' M2 U2' M2 U' M2`,
+            `(M2 U2 M2) U (M2 U2 M2) U'`
         ]
     },
     {   'id': 'PLL07',
