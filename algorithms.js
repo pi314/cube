@@ -461,9 +461,12 @@ let f2l_algo = [
     // {   'id': 'F2L34',
     //     'pattern': {'top': '........R', 'front': '..BBBRBB.', 'right': 'W..BRR.RR'},
     // },
-    // {   'id': 'F2L35',
-    //     'pattern': {'top': '........W', 'front': '..RBBRBB.', 'right': 'B..BRR.RR'},
-    // },
+    {   'id': 'F2L35',
+        'pattern': {'top': '........W', 'front': '..RBBRBB.', 'right': 'B..BRR.RR'},
+        'algo': [
+            `U' (R' F R F') [R U' R']`,
+        ]
+    },
     // {   'id': 'F2L36',
     //     'pattern': {'top': '........W', 'front': '..RBBBBB.', 'right': 'B..RRR.RR'},
     // },
