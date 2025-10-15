@@ -365,9 +365,12 @@ let f2l_algo = [
             `U' (R' F R F') (R U R')`,
         ]
     },
-    // {   'id': 'F2L08',
-    //     'pattern': {'top': '.......R.', 'front': '.B.BB.BBB', 'right': '....RRRRR'},
-    // },
+    {   'id': 'F2L08',
+        'pattern': {'top': '.......R.', 'front': '.B.BB.BBB', 'right': '....RRRRR'},
+        'algo': [
+            `(R' F R F') U' (R U' R' U) [R U R']`,
+        ]
+    },
     // {   'id': 'F2L09',
     //     'pattern': {'top': '.B......B', 'front': '..WBB.BB.', 'right': 'R...RR.RR'},
     // },
@@ -386,13 +389,13 @@ let f2l_algo = [
     {   'id': 'F2L13',
         'pattern': {'top': '.......BB', 'front': '.RWBB.BB.', 'right': 'R...RR.RR'},
         'algo': [
-            `(R U R') U2 (R U' R') U (R U' R')`,
+            `(R U R') U2 [R U' R' U R U' R']`,
         ]
     },
     {   'id': 'F2L14',
         'pattern': {'top': '.....R..R', 'front': '..BBB.BB.', 'right': 'WB..RR.RR'},
         'algo': [
-            `U (F (R U R' U') F') (U R U' R')`,
+            `U (F (R U R' U') F') [U R U' R']`,
         ]
     },
     // {   'id': 'F2L15',
@@ -419,7 +422,7 @@ let f2l_algo = [
     {   'id': 'F2L22',
         'pattern': {'top': '.......RW', 'front': '.BRBB.BB.', 'right': 'B...RR.RR'},
         'algo': [
-            `(R' F R F') (R U' R' U R U' R')`,
+            `(R' F R F') [R U' R' U R U' R']`,
         ]
     },
     // {   'id': 'F2L23',
@@ -443,7 +446,7 @@ let f2l_algo = [
     {   'id': 'F2L29',
         'pattern': {'top': '.......R.', 'front': '.B.BB.BBW', 'right': '....RRBRR'},
         'algo': [
-            `(R' F R F') U (R U' R')`,
+            `(R' F R F') [U R U' R']`,
         ]
     },
     // {   'id': 'F2L30',
