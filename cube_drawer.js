@@ -4,7 +4,7 @@ function draw_cube (pattern) {
     }
 
     if (pattern?.top && pattern?.front && pattern?.right) {
-        return draw_3d_cube(pattern?.top, pattern?.front, pattern?.right);
+        return draw_3d_cube(pattern);
     }
     return ''
 }
@@ -186,8 +186,8 @@ function draw_2d_cube (top_stickers, side_stickers, arrows) {
         return wbody(cx1, cy1, cx2, cy2) + tipf(cx1, cy1, angle) + (dbl ? tipr(cx2, cy2, angle) : '') + body(cx1, cy1, cx2, cy2);
     }
 
-    ret = `<svg viewBox="0 0 ${canvas_width} ${canvas_width}" xmlns="http://www.w3.org/2000/svg"
-            style="width: ${img_width}px; height: ${img_width}px">`
+    let ret = `<svg viewBox="0 0 ${canvas_width} ${canvas_width}" xmlns="http://www.w3.org/2000/svg"
+            style="width: ${img_width}px; height: ${img_width}px">`;
     ret += `<rect x="0" y="0" width="${canvas_width}" height="${canvas_width}" fill="white" />`;
 
     // Tile stickers
@@ -223,49 +223,245 @@ function draw_2d_cube (top_stickers, side_stickers, arrows) {
 }
 
 
-function draw_3d_cube (U_stickers, F_stickers, R_stickers) {
+function draw_3d_cube (pattern) {
+    let N = 9;
     let img_width = 100;
+    let canvas_padding = 10;
+    let tile_width = 40;
+    let tile_gap = 6;
+    let pov = 0.8;
 
-    U = palette(U_stickers);
-    F = palette(F_stickers);
-    R = palette(R_stickers);
+    let tile_kite_half_height = (tile_width / 2);
+    let tile_kite_half_width = tile_kite_half_height * Math.sqrt(3);
+    let tile_gap_half_height = (tile_gap / 2);
+    let tile_gap_half_width = tile_gap_half_height * Math.sqrt(3);
 
-    return `<svg version='1.1' xmlns='http://www.w3.org/2000/svg'
-        style="width: ${img_width}px; height: ${img_width}px"
-        viewBox='-0.9 -0.9 1.8 1.8'>
-        <g style='stroke-width:0.1;stroke-linejoin:round;opacity:1'>
-            <polygon fill='#000000' stroke='#000000' points='-4.9165444345E-17,-0.717341709543 0.704050371456,-0.412727063605 6.3108540578E-17,-0.0217250905725 -0.704050371456,-0.412727063605'/>
-            <polygon fill='#000000' stroke='#000000' points='6.3108540578E-17,-0.0217250905725 0.704050371456,-0.412727063605 0.629480283571,0.369012729157 5.55894689594E-17,0.811070564442'/>
-            <polygon fill='#000000' stroke='#000000' points='-0.704050371456,-0.412727063605 6.3108540578E-17,-0.0217250905725 5.55894689594E-17,0.811070564442 -0.629480283571,0.369012729157'/>
-        </g>
-        <g style='opacity:1;stroke-opacity:0.5;stroke-width:0;stroke-linejoin:round'>
-            <polygon fill='${U[0]}' stroke='#000000'  points='-4.94395492722E-17,-0.747570645647 0.195987546512,-0.662774614696 -1.69795801266E-17,-0.571237209618 -0.195987546512,-0.662774614696'/>
-            <polygon fill='${U[1]}' stroke='#000000'  points='0.232005309244,-0.646547084507 0.443574072948,-0.555009679429 0.248231527177,-0.455893701578 0.0360177627316,-0.555009679429'/>
-            <polygon fill='${U[2]}' stroke='#000000'  points='0.482583855536,-0.537431994052 0.711668838657,-0.4383160162 0.517783415392,-0.330639653666 0.287241309765,-0.4383160162'/>
-            <polygon fill='${U[3]}' stroke='#000000'  points='-0.232005309244,-0.646547084507 -0.0360177627316,-0.555009679429 -0.248231527177,-0.455893701578 -0.443574072948,-0.555009679429'/>
-            <polygon fill='${U[4]}' stroke='#000000'  points='-1.19067117689E-17,-0.537431994052 0.212213764446,-0.4383160162 1.31258271398E-17,-0.330639653666 -0.212213764446,-0.4383160162'/>
-            <polygon fill='${U[5]}' stroke='#000000'  points='0.251353447717,-0.419212035245 0.481895553344,-0.311535672712 0.270508995897,-0.19413986641 0.039139683271,-0.311535672712'/>
-            <polygon fill='${U[6]}' stroke='#000000'  points='-0.482583855536,-0.537431994052 -0.287241309765,-0.4383160162 -0.517783415392,-0.330639653666 -0.711668838657,-0.4383160162'/>
-            <polygon fill='${U[7]}' stroke='#000000'  points='-0.251353447717,-0.419212035245 -0.039139683271,-0.311535672712 -0.270508995897,-0.19413986641 -0.481895553344,-0.311535672712'/>
-            <polygon fill='${U[8]}' stroke='#000000'  points='1.92197429271E-17,-0.290697160276 0.231369312626,-0.173301353974 6.32515829415E-17,-0.0448079088972 -0.231369312626,-0.173301353974'/>
-            <polygon fill='${R[0]}' stroke='#000000'  points='0.0195723118985,-0.0109626610455 0.250941624524,-0.139456106122 0.241391846748,0.126727563228 0.0195723118985,0.261716201016'/>
-            <polygon fill='${R[1]}' stroke='#000000'  points='0.289305344891,-0.161716522847 0.500691902338,-0.279112329149 0.48317508531,-0.0193241313 0.279755567114,0.104467146503'/>
-            <polygon fill='${R[2]}' stroke='#000000'  points='0.535862871621,-0.299523577255 0.729748294886,-0.407199939789 0.705563815696,-0.153667051647 0.518346054594,-0.0397353794067'/>
-            <polygon fill='${R[3]}' stroke='#000000'  points='0.0187964861684,0.30740091162 0.240616021018,0.172412273832 0.23182332941,0.417493465286 0.0187964861684,0.557525119942'/>
-            <polygon fill='${R[4]}' stroke='#000000'  points='0.277484981547,0.149131684797 0.480904499743,0.0253404069942 0.464720974424,0.265354838312 0.26869228994,0.394212876251'/>
-            <polygon fill='${R[5]}' stroke='#000000'  points='0.514822720476,0.00392025149203 0.702040481578,-0.110011420748 0.679626178607,0.124964198255 0.498639195158,0.24393468281'/>
-            <polygon fill='${R[6]}' stroke='#000000'  points='0.0180798211904,0.599570709585 0.231106664432,0.459539054929 0.222984461349,0.685931529237 0.0180798211904,0.829827540014'/>
-            <polygon fill='${R[7]}' stroke='#000000'  points='0.266593210281,0.435462585597 0.462621894766,0.306604547658 0.447625016912,0.529020062126 0.258471007198,0.661855059905'/>
-            <polygon fill='${R[8]}' stroke='#000000'  points='0.495373153236,0.284381590748 0.676360136685,0.165411106194 0.655528520228,0.383794964844 0.480376275383,0.506797105216'/>
-            <polygon fill='${F[0]}' stroke='#000000'  points='-0.730336618018,-0.406648000697 -0.536451194753,-0.298971638163 -0.518934377726,-0.0391834403149 -0.706152138828,-0.153115112555'/>
-            <polygon fill='${F[1]}' stroke='#000000'  points='-0.501394876389,-0.27854802284 -0.290008318942,-0.161152216538 -0.280458541166,0.105031452812 -0.483878059362,-0.0187598249911'/>
-            <polygon fill='${F[2]}' stroke='#000000'  points='-0.251784251975,-0.138883000883 -0.0204149393493,-0.0103895558063 -0.0204149393493,0.262289306255 -0.242234474199,0.127300668467'/>
-            <polygon fill='${F[3]}' stroke='#000000'  points='-0.702590256077,-0.109566819661 -0.515372494975,0.0043648525786 -0.499188969657,0.244379283896 -0.680175953105,0.125408799342'/>
-            <polygon fill='${F[4]}' stroke='#000000'  points='-0.481556632129,0.025787474065 -0.278137113933,0.149578751868 -0.269344422326,0.394659943322 -0.465373106811,0.265801905383'/>
-            <polygon fill='${F[5]}' stroke='#000000'  points='-0.241391846748,0.172857245909 -0.0195723118985,0.307845883697 -0.0195723118985,0.557970092018 -0.23259915514,0.417938437362'/>
-            <polygon fill='${F[6]}' stroke='#000000'  points='-0.676874966562,0.165766840531 -0.495887983113,0.284737325085 -0.480891105259,0.507152839553 -0.656043350105,0.384150699181'/>
-            <polygon fill='${F[7]}' stroke='#000000'  points='-0.463228483716,0.306955455879 -0.267199799232,0.435813493818 -0.259077596148,0.662205968126 -0.448231605863,0.529370970347'/>
-            <polygon fill='${F[8]}' stroke='#000000'  points='-0.23182332941,0.459880027528 -0.0187964861684,0.599911682184 -0.0187964861684,0.830168512613 -0.223701126327,0.686272501836'/>
-        </g>
-    </svg>`;
+    let U = palette(pattern?.top);
+    let F = palette(pattern?.front);
+    let R = palette(pattern?.right);
+    // let B = palette(pattern?.back);
+    // let L = palette(pattern?.left);
+    // let D = palette(pattern?.down);
+
+    function deg_to_rad (deg) {
+        return (deg / 360) * Math.PI * 2;
+    }
+
+    function rad_to_deg (rad) {
+        return (rad / (Math.PI * 2)) * 360;
+    }
+
+    let min_x = 0;
+    let min_y = 0;
+    let max_x = 0;
+    let max_y = 0;
+
+    class Point {
+        constructor (x, y) {
+            this.x = x;
+            this.y = y;
+            this.r = Math.sqrt(x * x + y * y);
+            this.theta = Math.atan2(y, x);
+            min_x = Math.min(min_x, x);
+            min_y = Math.min(min_y, y);
+            max_x = Math.max(max_x, x);
+            max_y = Math.max(max_y, y);
+        }
+
+        add (p) {
+            return new Point(this.x + p.x, this.y + p.y);
+        }
+
+        rotate (deg) {
+            let theta = this.theta - (deg * (Math.PI * 2) / 360);
+            return new Point(this.r * Math.cos(theta), this.r * Math.sin(theta));
+        }
+
+        distort () {
+            function lerp (a, b, t) {
+                if (t == 0) {
+                    return a;
+                } else if (t == 1) {
+                    return b;
+                }
+                return a + t * (b - a);
+            }
+
+            let theta = ((rad_to_deg(this.theta) - 30) + 360) % 360;
+            let factor = 1;
+            return new Point(this.x * factor, this.y * factor);
+        }
+    };
+
+    class Sticker {
+        constructor (color, points) {
+            this.color = color;
+            this.points = points;
+        }
+
+        render () {
+            let points = this.points.map((p) => {
+                let dp = p.distort();
+                return `${dp.x} ${dp.y}`;
+            }).join(' ');
+            let color = this.color;
+            return `<polygon fill="${color}" points="${points}"/>`;
+        }
+    }
+
+    class Body {
+        constructor (points) {
+            this.points = points;
+        }
+
+        render () {
+            let points = this.points.map((p) => {
+                let dp = p.distort();
+                return `${dp.x} ${dp.y}`;
+            }).join(' ');
+            let color = palette('#')[0];
+            return `<polygon fill="${color}"
+                stroke="${color}" stroke-width="${tile_gap}" stroke-linejoin="round"
+                points="${points}"/>`;
+        }
+    }
+
+    const face_deg_mapping = new Map([
+        ['U', 0],
+        ['F', 120],
+        ['R', 240],
+    ]);
+    function get_sticker (face, color, offset_x, offset_y) {
+        if (!color) {
+            return;
+        }
+
+        let rotate_deg = face_deg_mapping.get(face);
+
+        let center = new Point(
+            offset_x * (tile_kite_half_width + tile_gap_half_width),
+            offset_y * (tile_kite_half_height + tile_gap_half_height)
+        );
+        let p0 = center.add(new Point(0, - tile_kite_half_height)).rotate(rotate_deg);
+        let p1 = center.add(new Point(tile_kite_half_width, 0)).rotate(rotate_deg);
+        let p2 = center.add(new Point(0, tile_kite_half_height)).rotate(rotate_deg);
+        let p3 = center.add(new Point(-tile_kite_half_width, 0)).rotate(rotate_deg);
+
+        return new Sticker(color, [p0, p1, p2, p3]);
+    }
+
+    let top_stickers = [
+        get_sticker('U', U[0], 0, -5),
+        get_sticker('U', U[1], 1, -4),
+        get_sticker('U', U[2], 2, -3),
+        get_sticker('U', U[3], -1, -4),
+        get_sticker('U', U[4], 0, -3),
+        get_sticker('U', U[5], 1, -2),
+        get_sticker('U', U[6], -2, -3),
+        get_sticker('U', U[7], -1, -2),
+        get_sticker('U', U[8], 0, -1),
+    ];
+
+    let right_stickers = [
+        get_sticker('R', R[8], 0, -5),
+        get_sticker('R', R[7], 1, -4),
+        get_sticker('R', R[6], 2, -3),
+        get_sticker('R', R[5], -1, -4),
+        get_sticker('R', R[4], 0, -3),
+        get_sticker('R', R[3], 1, -2),
+        get_sticker('R', R[2], -2, -3),
+        get_sticker('R', R[1], -1, -2),
+        get_sticker('R', R[0], 0, -1),
+    ];
+
+    let front_stickers = [
+        get_sticker('F', F[6], 0, -5),
+        get_sticker('F', F[3], 1, -4),
+        get_sticker('F', F[0], 2, -3),
+        get_sticker('F', F[7], -1, -4),
+        get_sticker('F', F[4], 0, -3),
+        get_sticker('F', F[1], 1, -2),
+        get_sticker('F', F[8], -2, -3),
+        get_sticker('F', F[5], -1, -2),
+        get_sticker('F', F[2], 0, -1),
+    ];
+
+    // let down_stickers = [
+    //     get_sticker('U', D[0], 0, 2),
+    //     get_sticker('U', D[1], 1, 3),
+    //     get_sticker('U', D[2], 2, 4),
+    //     get_sticker('U', D[3], -1, 3),
+    //     get_sticker('U', D[4], 0, 4),
+    //     get_sticker('U', D[5], 1, 5),
+    //     get_sticker('U', D[6], -2, 4),
+    //     get_sticker('U', D[7], -1, 5),
+    //     get_sticker('U', D[8], 0, 6),
+    // ];
+
+    // let left_stickers = [
+    //     get_sticker('R', L[8], 0, 2),
+    //     get_sticker('R', L[7], 1, 3),
+    //     get_sticker('R', L[6], 2, 4),
+    //     get_sticker('R', L[5], -1, 3),
+    //     get_sticker('R', L[4], 0, 4),
+    //     get_sticker('R', L[3], 1, 5),
+    //     get_sticker('R', L[2], -2, 4),
+    //     get_sticker('R', L[1], -1, 5),
+    //     get_sticker('R', L[0], 0, 6),
+    // ];
+
+    // let back_stickers = [
+    //     get_sticker('F', B[6], 0, 2),
+    //     get_sticker('F', B[3], 1, 3),
+    //     get_sticker('F', B[0], 2, 4),
+    //     get_sticker('F', B[7], -1, 3),
+    //     get_sticker('F', B[4], 0, 4),
+    //     get_sticker('F', B[1], 1, 5),
+    //     get_sticker('F', B[8], -2, 4),
+    //     get_sticker('F', B[5], -1, 5),
+    //     get_sticker('F', B[2], 0, 6),
+    // ];
+
+    let ret = '';
+
+    // left_stickers.forEach((t) => {
+    //     ret += t?.render();
+    // });
+
+    // back_stickers.forEach((t) => {
+    //     ret += t?.render();
+    // });
+
+    // down_stickers.forEach((t) => {
+    //     ret += t?.render();
+    // });
+
+    let cube_tip = top_stickers[2].points[1].add(new Point(tile_gap_half_width / 2, tile_gap_half_height / 2));
+    ret += new Body([
+        top_stickers[0].points[0],
+        cube_tip,
+        top_stickers[0].points[0].rotate(240),
+        cube_tip.rotate(240),
+        top_stickers[0].points[0].rotate(120),
+        cube_tip.rotate(120),
+    ]).render();
+
+    top_stickers.forEach((t) => {
+        ret += t?.render();
+    });
+
+    right_stickers.forEach((t) => {
+        ret += t?.render();
+    });
+
+    front_stickers.forEach((t) => {
+        ret += t?.render();
+    });
+
+    let canvas_width = Math.max(Math.max(Math.abs(min_x), max_x) * 2, Math.max(Math.abs(min_y), max_y) * 2) + canvas_padding;
+
+    return `<svg xmlns="http://www.w3.org/2000/svg"
+            viewBox="-${canvas_width / 2} -${canvas_width / 2} ${canvas_width} ${canvas_width}"
+            style="width: ${img_width}px; height: ${img_width}px"
+            >` + ret + '</svg>';
 }
