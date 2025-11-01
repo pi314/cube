@@ -39,7 +39,9 @@ function main () {
                                 ((card.name) ? p(card.name) : '')
                             ),
                             td(draw_cube(card.pattern)),
-                            (card?.algo) ? td(...card.algo.map((e) => p(e)).join(hr)) : td()
+                            (card?.algo) ? td(...card.algo.map(
+                                (e) => p(e.split('/').map((t) => t.trim()).join('<br>'))
+                            ).join(hr)) : td()
                         );
                     }
                 })

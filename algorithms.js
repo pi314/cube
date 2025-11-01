@@ -1,4 +1,4 @@
-let oll_algo = [
+let oll_algos = [
     // {   'id': 'OLL01',
     //     'pattern': {'top': 'WWWW#WWWW', 'edge': '-#-/###/###/-#-'},
     // },
@@ -222,7 +222,7 @@ let oll_algo = [
 ];
 
 
-let pll_algo = [
+let pll_algos = [
     {   'id': 'PLL01',
         'name': 'U(b) perm',
         'pattern': {'top': 'YYYYYYYYY', 'edge': 'RRR/GBG/BOB/OGO', 'arrows': ['6->8', '8->4', '4->6']},
@@ -250,7 +250,7 @@ let pll_algo = [
         'pattern': {'top': 'YYYYYYYYY', 'edge': 'RRB/GGB/OBO/ROG', 'arrows': ['7->3', '9->7', '3->9']},
         'algo': [
             `x' R2 D2 (R' U' R) D2 (R' U R')`,
-            `U2 (r U r' U') r' F r2 (U' r' U' r U r') F' //wide T-perm`
+            `U2 (r U r' U') r' F r2 (U' r' U' r U r') F'`
         ]
     },
     {   'id': 'PLL05',
@@ -339,7 +339,7 @@ let pll_algo = [
 ];
 
 
-let f2l_algo = [
+let f2l_algos = [
     // Number and category from: https://speedcubedb.com/a/3x3/F2L
     // {   'id': 'F2L01', 'category': 'free pair',
     //     'pattern': {'top': '.....G..G', 'front': '..WGG.GG.', 'right': 'OO..OO.OO'},
@@ -494,10 +494,15 @@ let f2l_algo = [
     // {   'id': 'F2L41', 'category': 'pieces in slot',
     //     'pattern': {'top': '.........', 'front': '...GGOGGO', 'right': '...GOOWOO'},
     // },
+];
+
+
+let four_by_four_algos = [
     {   'id': '4x4 OLL parity',
         'pattern': {'top': 'YYYYYYYYYYYYYOOY', 'edge': 'RRRR/GGGG/BBBB/OYYO'},
         'algo': [
             `(r' U2) (l F2 l' F2) r2 (U2 r U2 r' U2) F2 r2 F2`,
+            `(Rw U2) X / (Rw U2 Rw U2) / (Rw' U2 Lw U2) / (Rw' U2 Rw U2) / (Rw' U2 Rw')`,
         ]
     },
     {   'name': '4x4 PLL parity',
@@ -506,15 +511,18 @@ let f2l_algo = [
             `r2 U2 r2 Uw2 r2 u2`,
         ]
     },
-];
-
-
-let four_by_four_algo = [
+    {   'id': '4x4 L2E parity',
+        'name': '(LBL)',
+        'pattern': {'top': 'YYYYYYYYYYYYOOGG', 'edge': 'BBBO/RRRB/GGOR/YYYY'},
+        'algo': [
+            `Rw2 D Rw' U2 Rw D' Rw' U2 Rw'`,
+        ]
+    },
 ];
 
 
 let algos = [
-    oll_algo,
-    pll_algo,
-    f2l_algo,
+    oll_algos,
+    pll_algos,
+    f2l_algos.concat(four_by_four_algos),
 ];

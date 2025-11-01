@@ -1,5 +1,5 @@
 #container {
-    max-width: fit-content;
+    width: fit-content;
     margin-left: auto;
     margin-right: auto;
     border: solid 2px black;
@@ -29,6 +29,11 @@ table, td {
 
 td {
     padding: 8px;
+    white-space: nowrap;
+}
+
+p {
+    margin: 8px 0;
 }
 
 .card {
