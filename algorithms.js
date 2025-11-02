@@ -502,6 +502,12 @@ let four_by_four_algos = [
         'pattern': {'top': 'YYYYYYYYYYYYYOOY', 'edge': 'RRRR/GGGG/BBBB/OYYO'},
         'algo': [
             `(r' U2) (l F2 l' F2) r2 (U2 r U2 r' U2) F2 r2 F2`,
+        ]
+    },
+    {   'id': '4x4 OLL parity',
+        'name': '(easy)',
+        'pattern': {'top': 'YYYYYYYYYYYYOOOO', 'edge': 'RRRR/GBBB/BGGG/YYYY'},
+        'algo': [
             `(Rw U2) X / (Rw U2 Rw U2) / (Rw' U2 Lw U2) / (Rw' U2 Rw U2) / (Rw' U2 Rw')`,
         ]
     },
